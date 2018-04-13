@@ -1,0 +1,115 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Algorithmia",
+		"_postman_id": "0cd68f1c-9e4e-9478-aa2a-87ca36800c0a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "log(2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Verify result\"] = jsonData.result.x === data[\"expected_result\"];",
+							"",
+							"tests[\"Verify result2\"] = responseBody.has(data.expected_result);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Returns a random number between min (inclusive) and max (exclusive)",
+							"",
+							"function getRandomArbitrary(min, max) {",
+							"     return Math.random() * (max - min) + min;",
+							" }",
+							" ",
+							" postman.setEnvironmentVariable(\"myvar\", getRandomArbitrary(4, 100));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{url}}/WayneS/Calculator/0.1.0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"WayneS",
+						"Calculator",
+						"0.1.0"
+					],
+					"query": [
+						{
+							"key": "dataSetName",
+							"value": "",
+							"equals": false,
+							"description": "string - Limits imports to those for a particular dataset.",
+							"disabled": true
+						},
+						{
+							"key": "requestedAfterDate",
+							"value": "",
+							"equals": false,
+							"description": "string - Format - date-time (as date-time in ISO8601). Limits imports to those requested on or after the specified date",
+							"disabled": true
+						},
+						{
+							"key": "requestedBeforeDate",
+							"value": "",
+							"equals": false,
+							"description": "string - Format - date-time (as date-time in ISO8601). Limits imports to those requested on or before the specified date.",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "",
+							"equals": false,
+							"description": "integer - Format - int32. Zero-based page number of imports to retrieve",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "",
+							"equals": false,
+							"description": "integer\nFormat - int32. Count of imports to retrieve in each page (max 1000).",
+							"disabled": true
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Simple {{key}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"x=log({{input}})\""
+				},
+				"description": null
+			},
+			"response": []
+		}
+	]
+}
