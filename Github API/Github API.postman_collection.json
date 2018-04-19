@@ -33,7 +33,47 @@
 											"",
 											"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
 											"",
-											"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "{{USERS_URL}}/{{USERNAME}}",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}"
+								},
+								"description": "User Details"
+							},
+							"response": []
+						},
+						{
+							"name": "User Details Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const jsonData = JSON.parse(responseBody);",
+											"",
+											"const { login } = jsonData;",
+											"",
+											"tests[\"Gets the correct username\"] = login === \"scotch-io\";",
+											"",
+											"tests[\"Status code is 200\"] = responseCode.code === 200;",
+											"",
+											"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");",
+											"",
 											""
 										]
 									}
